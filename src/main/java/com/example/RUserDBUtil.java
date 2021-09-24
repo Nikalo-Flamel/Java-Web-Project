@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RUserDBUtil {
+	
+	private static MovieDBUtil MovieDBUtil = new MovieDBUtil();
 
-	public RegisteredUser getRegisteredUser(String userId)
-	throws Exception{
+	public RegisteredUser getRegisteredUser(String userId) throws Exception{
 		
 		RegisteredUser user = null;
 		
@@ -45,7 +46,7 @@ public class RUserDBUtil {
 				//create new student
 				user = new RegisteredUser(id, userName, password, email);
 				
-				//user.setWatchedMovies(getWatchedMovies(userId));
+				user.setWishedMovies(getWishedMovies(userId));
 
 			} else {
 				throw new Exception("Could not find student id: " + userId);
@@ -60,9 +61,9 @@ public class RUserDBUtil {
 		}
 	}
 
-	private List<Movie> getWatchedMovies(String userId) throws Exception{
+	private List<Movie> getWishedMovies(String userId) throws Exception{
 		
-		List<Movie> watchedMovies = new ArrayList<Movie>();
+		List<Movie> wishedMovies = new ArrayList<Movie>();
 		
 		Connection myConn = null;
 		PreparedStatement myStmt= null;
@@ -76,7 +77,7 @@ public class RUserDBUtil {
 			myConn = DBConnect.getConnection();
 			
 			//create sql statement
-			String sql = "select * from WatchedMovies where RegisteredUserId=?";
+			String sql = "select * from WishedMovies where RegisteredUserId=?";
 			myStmt = myConn.prepareStatement(sql);
 			myStmt.setInt(1, id);
 
@@ -87,10 +88,10 @@ public class RUserDBUtil {
 			while (myRe.next()) {
 				//retrieve data
 				int movieId = myRe.getInt("MovieId");
-				
+				wishedMovies.add(MovieDBUtil.getMovie(movieId));	
 			}	
 			
-			return watchedMovies;
+			return wishedMovies;
 			
 		}
 		finally {
@@ -98,6 +99,42 @@ public class RUserDBUtil {
 			//close jdbc objects
 			close(myConn, myStmt, myRe);
 		}
+	}
+
+	public boolean updateRegisteredUser(RegisteredUser user) throws Exception {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt= null;
+		boolean isSuccess = false;
+		
+		try {
+			//get the connection
+			myConn = DBConnect.getConnection();
+			
+			//create sql statement
+			String sql = "update RegisteredUser "
+					+ "set user_name=?, password=?, email=? "
+					+ "where RegisteredUserId=?";
+			
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setString(1, user.getUserName());
+			myStmt.setString(2, user.getPassword());
+			myStmt.setString(3, user.getEmail());
+			myStmt.setInt(4, user.getId());
+			
+			System.out.println(myStmt);
+
+			//execute query
+			isSuccess = myStmt.execute();
+			//System.out.println("Updated");
+		}
+		finally {
+			
+			//close jdbc objects
+			close(myConn, myStmt, null);
+		}
+
+		return isSuccess;
 	}
 	
 	private void close(Connection myConn, Statement myStmt, ResultSet myRe) {

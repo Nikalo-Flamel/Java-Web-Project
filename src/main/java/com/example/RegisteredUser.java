@@ -9,7 +9,7 @@ public class RegisteredUser extends User{
 	private String userName;
 	private String password;
 	private String email;
-	private List<Movie> watchedMovies;
+	private List<Movie> wishedMovies;
 	private List<TVSeries> watchedTVSeries;
 	
 	public RegisteredUser(int id, String userName, String password, String email) {
@@ -18,7 +18,7 @@ public class RegisteredUser extends User{
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
-		this.watchedMovies = new ArrayList<Movie>();
+		this.wishedMovies = new ArrayList<Movie>();
 		this.watchedTVSeries = new ArrayList<TVSeries>();
 	}
 
@@ -54,12 +54,12 @@ public class RegisteredUser extends User{
 		this.email = email;
 	}
 
-	public List<Movie> getWatchedMovies() {
-		return watchedMovies;
+	public List<Movie> getWishedMovies() {
+		return wishedMovies;
 	}
 
-	public void setWatchedMovies(List<Movie> watchedMovies) {
-		this.watchedMovies = watchedMovies;
+	public void setWishedMovies(List<Movie> wishedMovies) {
+		this.wishedMovies = wishedMovies;
 	}
 
 	public List<TVSeries> getWatchedTVSeries() {
