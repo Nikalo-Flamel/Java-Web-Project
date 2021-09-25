@@ -31,6 +31,32 @@ public class RUserControllerServlet extends HttpServlet {
 				case "LOAD":
 					accountDetails(request, response);
 					break;
+//				case "UPDATE":
+//					updateAccount(request, response);
+//					break;
+				case "DELETE":
+					deleteAccount(request, response);
+					break;
+					
+				default:
+					System.out.println(command);
+				}
+			}
+			
+		}
+		catch(Exception exc) {
+			throw new ServletException(exc);
+		}
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {			
+			String command = request.getParameter("command");
+			
+			if(command != null) {
+				switch(command) {	
 				case "UPDATE":
 					updateAccount(request, response);
 					break;
@@ -44,7 +70,19 @@ public class RUserControllerServlet extends HttpServlet {
 		catch(Exception exc) {
 			throw new ServletException(exc);
 		}
+	}
+
+	private void deleteAccount(HttpServletRequest request, HttpServletResponse response)
+	throws Exception{
 		
+		String userId = request.getParameter("UserId");
+		
+		RegisteredUser user = RUserDBUtil.getRegisteredUser(userId);
+		boolean isSuccess = RUserDBUtil.deleteUser(user);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
+		dispatcher.forward(request, response);
+	
 	}
 
 	private void updateAccount(HttpServletRequest request, HttpServletResponse response) 
@@ -62,11 +100,10 @@ public class RUserControllerServlet extends HttpServlet {
 		
 		boolean isSuccess = RUserDBUtil.updateRegisteredUser(user);
 		
-//		request.setAttribute("UserId", userId);	
-//		System.out.println("Request modified");	
-//		showAccount(request, response);
+		user = RUserDBUtil.getRegisteredUser("" + userId);
+		request.setAttribute("REGISTERED_USER", user);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/RUserAccount.jsp");
 		dispatcher.forward(request, response);
 		
 	}

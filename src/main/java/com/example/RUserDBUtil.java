@@ -121,8 +121,38 @@ public class RUserDBUtil {
 			myStmt.setString(2, user.getPassword());
 			myStmt.setString(3, user.getEmail());
 			myStmt.setInt(4, user.getId());
+			//System.out.println(myStmt);
+
+			//execute query
+			isSuccess = myStmt.execute();
+			//System.out.println("Updated");
+		}
+		finally {
 			
-			System.out.println(myStmt);
+			//close jdbc objects
+			close(myConn, myStmt, null);
+		}
+
+		return isSuccess;
+	}
+	
+
+	public boolean deleteUser(RegisteredUser user) throws Exception{
+		
+		Connection myConn = null;
+		PreparedStatement myStmt= null;
+		boolean isSuccess = false;
+		
+		try {
+			//get the connection
+			myConn = DBConnect.getConnection();
+			
+			//create sql statement
+			String sql = "delete from RegisteredUser where RegisteredUserId=?";
+			
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setInt(1, user.getId());
+			//System.out.println(myStmt);
 
 			//execute query
 			isSuccess = myStmt.execute();

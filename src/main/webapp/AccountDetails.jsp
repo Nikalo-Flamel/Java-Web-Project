@@ -9,7 +9,7 @@
 <body>
 
 		<h3>Update User Details</h3>
-		<form action="http://localhost:8091/Oop_demo1/RUserControllerServlet" method="get">
+		<form action="http://localhost:8091/Oop_demo1/RUserControllerServlet" method="post">
 			<input type="hidden" name="command" value="UPDATE">
 			<input type="hidden" name="userId" value="${REGISTERED_USER.id }">
 			
@@ -32,6 +32,10 @@
 				</tr>
 			</table>
 		</form>
+		
+		<hr>
+		
+		<a href="http://localhost:8091/Oop_demo1/RUserControllerServlet?command=DELETE&UserId=${REGISTERED_USER.id }">Delete account</a>
 
 </body>
 </html>
