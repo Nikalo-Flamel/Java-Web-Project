@@ -1,8 +1,8 @@
 package com.example;
 
-public class User {
+public abstract class User {
 	
-	public User() {
-		
-	}
+	public abstract String getPassword();
+	
+	public abstract int getId();
 }

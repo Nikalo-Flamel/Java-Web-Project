@@ -10,6 +10,67 @@ import java.util.List;
 public class RUserDBUtil {
 	
 	private static MovieDBUtil MovieDBUtil = new MovieDBUtil();
+	
+
+	public boolean validateUser(User user, String password){
+		
+		if (user == null) {
+			return false;
+		}
+		if (user.getPassword().equals(password)) {
+			//System.out.println("Equal");
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public User getUserbyUserName(String userName) throws Exception{
+		
+		User user = null;
+		
+		Connection myConn = null;
+		PreparedStatement myStmt= null;
+		ResultSet myRe = null;
+		
+		try {
+			
+			//get the connection
+			myConn = DBConnect.getConnection();
+			
+			//create sql statement
+			String sql = "select * from RegisteredUser where user_name=?";
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setString(1, userName);
+			
+			//execute query
+			myRe = myStmt.executeQuery();
+			
+			//process the result set
+			if (myRe.next()) {
+				//retrieve data
+				int id = myRe.getInt("RegisteredUserId");
+				String password = myRe.getString("password");
+				String email = myRe.getString("email");
+				
+				System.out.println(userName);
+				
+				//create new student
+				user = new RegisteredUser(id, userName, password, email);
+
+			} else {
+				//throw new Exception("Could not find student user name: " + userName);
+				user = null;
+			}
+			
+			return user;
+		}
+		finally {
+			
+			//close jdbc objects
+			close(myConn, myStmt, myRe);
+		}
+	}
 
 	public RegisteredUser getRegisteredUser(String userId) throws Exception{
 		

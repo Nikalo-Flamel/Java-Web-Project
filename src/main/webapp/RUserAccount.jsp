@@ -25,5 +25,6 @@
 	</ul>
 	<br><hr><br>
 	<a href="http://localhost:8091/Oop_demo1/RUserControllerServlet?command=LOAD&UserId=${REGISTERED_USER.id }">Edit Profile</a>
+	<a href="/Oop_demo1/home.jsp?UserId=${REGISTERED_USER.id }">Home</a>
 </body>
 </html>
