@@ -59,8 +59,7 @@ public class RUserControllerServlet extends HttpServlet {
 				switch(command) {	
 				case "UPDATE":
 					updateAccount(request, response);
-					break;
-					
+					break;		
 				default:
 					System.out.println(command);
 				}
@@ -92,10 +91,12 @@ public class RUserControllerServlet extends HttpServlet {
 		//System.out.println(userId);
 		
 		String userName = request.getParameter("userName");
+		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
+		String mobile = request.getParameter("mobile");
 		
-		RegisteredUser user = new RegisteredUser(userId, userName, password, email);
+		RegisteredUser user = new RegisteredUser(userName, name, password, email, mobile, userId);
 		
 		
 		boolean isSuccess = RUserDBUtil.updateRegisteredUser(user);

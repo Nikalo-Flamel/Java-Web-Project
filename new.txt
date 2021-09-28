@@ -1,0 +1,10 @@
+1. home - interface    ***
+2. movies              ***
+3. articles  	       ***
+4. tv series           ***
+5. single movie        ***
+6. single article      ***
+
+7. Account
+8. account edit
+9. login               ***

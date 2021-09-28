@@ -1,8 +1,39 @@
 package com.example;
 
-public abstract class User {
+public class User {
 	
-	public abstract String getPassword();
+	private String Username;
+	private String Name;
+	private String Password;
+	private String Email;
+	private String Mobile;
 	
-	public abstract int getId();
+	public User(String username, String name, String password, String email, String mobile) {
+		Username = username;
+		Name = name;
+		Password = password;
+		Email = email;
+		Mobile = mobile;
+	}
+	
+	public String getUsername() {
+		return Username;
+	}
+	
+	public String getName() {
+		return Name;
+	}
+	
+	public String getPassword() {
+		return Password;
+	}
+	
+	public String getEmail() {
+		return Email;
+	}
+	
+	public String getMobile() {
+		return Mobile;
+	}
+
 }

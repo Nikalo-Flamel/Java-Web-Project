@@ -14,15 +14,11 @@
 <body>
 
 	<h2>Hello, ${REGISTERED_USER.userName }</h2>
+	<p> ${REGISTERED_USER.name } </p>
 	<p> ${REGISTERED_USER.email } </p>
+	<p> ${REGISTERED_USER.mobile } </p>
 	<hr>
 	
-	<h3>Wished List</h3>
-	<ul>
-		<% for(Movie movie: user.getWishedMovies()) {%>
-		<li> <%= movie.getName() %> </li>
-		<% } %>
-	</ul>
 	<br><hr><br>
 	<a href="http://localhost:8091/Oop_demo1/RUserControllerServlet?command=LOAD&UserId=${REGISTERED_USER.id }">Edit Profile</a>
 	<a href="/Oop_demo1/home.jsp?UserId=${REGISTERED_USER.id }">Home</a>

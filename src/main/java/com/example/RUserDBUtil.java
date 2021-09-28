@@ -25,9 +25,9 @@ public class RUserDBUtil {
 		}
 	}
 
-	public User getUserbyUserName(String userName) throws Exception{
+	public RegisteredUser getUserbyUserName(String userName) throws Exception{
 		
-		User user = null;
+		RegisteredUser user = null;
 		
 		Connection myConn = null;
 		PreparedStatement myStmt= null;
@@ -36,10 +36,10 @@ public class RUserDBUtil {
 		try {
 			
 			//get the connection
-			myConn = DBConnect.getConnection();
+			myConn = DBconnect.getConnection();
 			
 			//create sql statement
-			String sql = "select * from RegisteredUser where user_name=?";
+			String sql = "select * from RegisteredUser where User_name=?";
 			myStmt = myConn.prepareStatement(sql);
 			myStmt.setString(1, userName);
 			
@@ -50,13 +50,15 @@ public class RUserDBUtil {
 			if (myRe.next()) {
 				//retrieve data
 				int id = myRe.getInt("RegisteredUserId");
+				String name = myRe.getString("Name");
 				String password = myRe.getString("password");
-				String email = myRe.getString("email");
+				String email = myRe.getString("Email");
+				String mobile = myRe.getString("Mobile");
 				
 				System.out.println(userName);
 				
 				//create new student
-				user = new RegisteredUser(id, userName, password, email);
+				user = new RegisteredUser(userName, name, password, email, mobile, id);
 
 			} else {
 				//throw new Exception("Could not find student user name: " + userName);
@@ -86,7 +88,7 @@ public class RUserDBUtil {
 			//System.out.println(id);
 			
 			//get the connection
-			myConn = DBConnect.getConnection();
+			myConn = DBconnect.getConnection();
 			
 			//create sql statement
 			String sql = "select * from RegisteredUser where RegisteredUserId=?";
@@ -100,14 +102,16 @@ public class RUserDBUtil {
 			if (myRe.next()) {
 				//retrieve data
 				String userName = myRe.getString("user_name");
+				String name = myRe.getString("Name");
 				String password = myRe.getString("password");
-				String email = myRe.getString("email");
+				String email = myRe.getString("Email");
+				String mobile = myRe.getString("Mobile");
 				//System.out.println(userName);
 				
 				//create new student
-				user = new RegisteredUser(id, userName, password, email);
+				user = new RegisteredUser(userName, name, password, email, mobile, id);
 				
-				user.setWishedMovies(getWishedMovies(userId));
+				//user.setWishedMovies(getWishedMovies(userId));
 
 			} else {
 				throw new Exception("Could not find student id: " + userId);
@@ -135,7 +139,7 @@ public class RUserDBUtil {
 			id = Integer.parseInt(userId);
 			
 			//get the connection
-			myConn = DBConnect.getConnection();
+			myConn = DBconnect.getConnection();
 			
 			//create sql statement
 			String sql = "select * from WishedMovies where RegisteredUserId=?";
@@ -170,18 +174,20 @@ public class RUserDBUtil {
 		
 		try {
 			//get the connection
-			myConn = DBConnect.getConnection();
+			myConn = DBconnect.getConnection();
 			
 			//create sql statement
 			String sql = "update RegisteredUser "
-					+ "set user_name=?, password=?, email=? "
+					+ "set User_name=?, Name=?, Password=?, Email=?, Mobile=? "
 					+ "where RegisteredUserId=?";
 			
 			myStmt = myConn.prepareStatement(sql);
-			myStmt.setString(1, user.getUserName());
-			myStmt.setString(2, user.getPassword());
-			myStmt.setString(3, user.getEmail());
-			myStmt.setInt(4, user.getId());
+			myStmt.setString(1, user.getUsername());
+			myStmt.setString(2, user.getName());
+			myStmt.setString(3, user.getPassword());
+			myStmt.setString(4, user.getEmail());
+			myStmt.setString(5, user.getMobile());
+			myStmt.setInt(6, user.getId());
 			//System.out.println(myStmt);
 
 			//execute query
@@ -206,7 +212,7 @@ public class RUserDBUtil {
 		
 		try {
 			//get the connection
-			myConn = DBConnect.getConnection();
+			myConn = DBconnect.getConnection();
 			
 			//create sql statement
 			String sql = "delete from RegisteredUser where RegisteredUserId=?";

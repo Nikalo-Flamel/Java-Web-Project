@@ -15,6 +15,10 @@
 			
 			<table>
 				<tr>
+					<td><label>Name : </label> </td>
+					<td><input type="text" name="name" value="${REGISTERED_USER.name }"> </td>
+				</tr>
+				<tr>
 					<td><label>User Name : </label> </td>
 					<td><input type="text" name="userName" value="${REGISTERED_USER.userName }"> </td>
 				</tr>
@@ -25,6 +29,10 @@
 				<tr>
 					<td><label>Password: </label> </td>
 					<td><input type="text" name="password" value="${REGISTERED_USER.password }"> </td>
+				</tr>
+				<tr>
+					<td><label>Mobile : </label> </td>
+					<td><input type="text" name="userName" value="${REGISTERED_USER.mobile }"> </td>
 				</tr>
 				<tr>
 					<td><label></label> </td>

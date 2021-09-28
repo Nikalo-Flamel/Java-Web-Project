@@ -1,17 +1,17 @@
 package com.example;
 
-public class Movie {
+public class Movie extends Content{
 	
 	private int id;
 	private String name;
-	private String discription;
+	private String language;
 	private String url;
 	private String thumbnail;
 	
-	public Movie(int id, String name, String discription, String url, String thumbnail) {
+	public Movie(int id, String name, String language, String url, String thumbnail) {
 		this.id = id;
 		this.name = name;
-		this.discription = discription;
+		this.language = language;
 		this.url = url;
 		this.thumbnail = thumbnail;
 	}
@@ -32,12 +32,12 @@ public class Movie {
 		this.name = name;
 	}
 
-	public String getDiscription() {
-		return discription;
+	public String getlanguage() {
+		return language;
 	}
 
-	public void setDiscription(String discription) {
-		this.discription = discription;
+	public void setlanguage(String language) {
+		this.language = language;
 	}
 
 	public String getUrl() {

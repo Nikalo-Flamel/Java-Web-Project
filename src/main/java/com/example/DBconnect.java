@@ -4,7 +4,7 @@ package com.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DBConnect {
+public class DBconnect {
 	
 	//jdbc:mysql://localhost:3306/`oop_demo1`
 	

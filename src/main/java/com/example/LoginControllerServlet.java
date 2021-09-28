@@ -33,7 +33,7 @@ public class LoginControllerServlet extends HttpServlet {
 			String userName = request.getParameter("userName");
 			String password = request.getParameter("password");
 			
-			User user = RUserDBUtil.getUserbyUserName(userName);
+			RegisteredUser user = RUserDBUtil.getUserbyUserName(userName);
 			
 			boolean isSuccess = RUserDBUtil.validateUser(user, password);
 			

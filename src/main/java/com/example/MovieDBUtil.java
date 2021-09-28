@@ -21,7 +21,7 @@ public class MovieDBUtil {
 			//System.out.println(id);
 			
 			//get the connection
-			myConn = DBConnect.getConnection();
+			myConn = DBconnect.getConnection();
 			
 			//create sql statement
 			String sql = "select * from Movie where MovieId=?";
@@ -35,13 +35,13 @@ public class MovieDBUtil {
 			if (myRe.next()) {
 				//retrieve data
 				String name = myRe.getString("name");
-				String discription = myRe.getString("discription");
+				String language = myRe.getString("language");
 				String url = myRe.getString("url");
-				String thumbnail = myRe.getString("thumbnail");
+				String thumbnail = myRe.getString("image");
 				//System.out.println(userName);
 				
 				//create new student
-				movie = new Movie(id, name, discription, url, thumbnail);
+				movie = new Movie(id, name, language, url, thumbnail);
 				
 
 			} else {
