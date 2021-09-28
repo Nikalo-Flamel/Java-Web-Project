@@ -24,6 +24,41 @@ public class RUserDBUtil {
 			return false;
 		}
 	}
+	
+	public int RegisterUser(RegisteredUser user) throws Exception {
+		
+		Connection myConn = null;
+		PreparedStatement myStmt= null;
+		int isSuccess = -1;
+		
+		try {
+			//get the connection
+			myConn = DBconnect.getConnection();
+			
+			//create sql statement
+			String sql = "insert into RegisteredUser value (0, ?, ?, ?, ?, ? ) ";
+			
+			myStmt = myConn.prepareStatement(sql);
+			myStmt.setString(1, user.getUsername());
+			myStmt.setString(2, user.getName());
+			myStmt.setString(3, user.getPassword());
+			myStmt.setString(4, user.getEmail());
+			myStmt.setString(5, user.getMobile());
+			//System.out.println(myStmt);
+
+			//execute query
+			isSuccess = myStmt.executeUpdate();
+			System.out.println("Updated");
+			System.out.println(isSuccess);
+		}
+		finally {
+			
+			//close jdbc objects
+			close(myConn, myStmt, null);
+		}
+
+		return isSuccess;
+	}
 
 	public RegisteredUser getUserbyUserName(String userName) throws Exception{
 		

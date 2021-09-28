@@ -35,6 +35,7 @@
 
 	<% if (userType == "") { %>
 		<a href="/Oop_demo1/login.jsp">Login</a>
+		<a href="/Oop_demo1/RUserRegister.jsp">Register</a>
 	<% } %>
 	
 

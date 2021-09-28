@@ -15,6 +15,12 @@ public class RegisteredUser extends User{
 		//this.watchedTVSeries = new ArrayList<TVSeries>();
 	}
 	
+	public RegisteredUser(String username, String name, String password, String email, String mobile) {
+		super(username, name, password, email, mobile);
+		this.id = 0;
+		//this.watchedTVSeries = new ArrayList<TVSeries>();
+	}
+	
 	public int getId() {
 		return this.id;
 	}

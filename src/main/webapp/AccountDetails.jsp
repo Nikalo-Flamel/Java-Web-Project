@@ -20,7 +20,7 @@
 				</tr>
 				<tr>
 					<td><label>User Name : </label> </td>
-					<td><input type="text" name="userName" value="${REGISTERED_USER.userName }"> </td>
+					<td><input type="text" name="userName" value="${REGISTERED_USER.username }"> </td>
 				</tr>
 				<tr>
 					<td><label>Email: </label> </td>
@@ -32,7 +32,7 @@
 				</tr>
 				<tr>
 					<td><label>Mobile : </label> </td>
-					<td><input type="text" name="userName" value="${REGISTERED_USER.mobile }"> </td>
+					<td><input type="text" name="mobile" value="${REGISTERED_USER.mobile }"> </td>
 				</tr>
 				<tr>
 					<td><label></label> </td>

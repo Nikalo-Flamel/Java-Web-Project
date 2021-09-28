@@ -13,11 +13,10 @@
 
 <body>
 
-	<h2>Hello, ${REGISTERED_USER.userName }</h2>
+	<h2>Hello, ${REGISTERED_USER.username }</h2>
 	<p> ${REGISTERED_USER.name } </p>
 	<p> ${REGISTERED_USER.email } </p>
 	<p> ${REGISTERED_USER.mobile } </p>
-	<hr>
 	
 	<br><hr><br>
 	<a href="http://localhost:8091/Oop_demo1/RUserControllerServlet?command=LOAD&UserId=${REGISTERED_USER.id }">Edit Profile</a>

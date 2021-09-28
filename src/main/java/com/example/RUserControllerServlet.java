@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,6 +80,8 @@ public class RUserControllerServlet extends HttpServlet {
 		RegisteredUser user = RUserDBUtil.getRegisteredUser(userId);
 		boolean isSuccess = RUserDBUtil.deleteUser(user);
 		
+		eraseCookie(request, response);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
 		dispatcher.forward(request, response);
 	
@@ -135,6 +138,17 @@ public class RUserControllerServlet extends HttpServlet {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/RUserAccount.jsp");
 		dispatcher.forward(request, response);
+	}
+	
+	private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
+	    Cookie[] cookies = req.getCookies();
+	    if (cookies != null)
+	        for (Cookie cookie : cookies) {
+	            cookie.setValue("");
+	            cookie.setPath("/");
+	            cookie.setMaxAge(0);
+	            resp.addCookie(cookie);
+	        }
 	}
 
 

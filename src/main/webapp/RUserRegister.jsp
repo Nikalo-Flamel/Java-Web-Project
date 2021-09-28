@@ -32,7 +32,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
-	<title>FlixGo – Online Movies, TV Shows</title>
+	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 
 </head>
 <body class="body">
@@ -42,32 +42,42 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="sign__content">
-						<!-- authorization form -->
-						<form action="/Oop_demo1/LoginControllerServlet" class="sign__form" method="post">
+						<!-- registration form -->
+						<form action="/Oop_demo1/RUserRegisterControllerServlet" class="sign__form" method="post">
 							<a href="index.html" class="sign__logo">
 								<img src="img/logo.svg" alt="">
 							</a>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Email" name="userName">
+								<input type="text" class="sign__input" placeholder="Name" name="name">
+							</div>
+
+							<div class="sign__group">
+								<input type="text" class="sign__input" placeholder="User Name" name="userName">
 							</div>
 
 							<div class="sign__group">
 								<input type="password" class="sign__input" placeholder="Password" name="password">
 							</div>
 
+							<div class="sign__group">
+								<input type="text" class="sign__input" placeholder="Email" name="email">
+							</div>
+
+							<div class="sign__group">
+								<input type="text" class="sign__input" placeholder="Phone number" name="mobile">
+							</div>
+
 							<div class="sign__group sign__group--checkbox">
 								<input id="remember" name="remember" type="checkbox" checked="checked">
-								<label for="remember">Remember Me</label>
+								<label for="remember">I agree to the <a href="#">Privacy Policy</a></label>
 							</div>
 							
-							<button class="sign__btn" type="submit" value="Sign in">Sign in</button>
+							<button class="sign__btn" type="submit">Sign up</button>
 
-							<span class="sign__text">Don't have an account? <a href="RUserRegister.jsp">Sign up!</a></span>
-
-							<span class="sign__text"><a href="#">Forgot password?</a></span>
+							<span class="sign__text">Already have an account? <a href="signin.html">Sign in!</a></span>
 						</form>
-						<!-- end authorization form -->
+						<!-- registration form -->
 					</div>
 				</div>
 			</div>
