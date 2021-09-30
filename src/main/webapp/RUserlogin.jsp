@@ -21,6 +21,8 @@
 	<link rel="stylesheet" href="css/photoswipe.css">
 	<link rel="stylesheet" href="css/default-skin.css">
 	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/plugins.css">
+	<link rel="stylesheet" href="css/new.css">
 	<link rel="stylesheet" href="css/new2.css">
 
 	<!-- Favicons -->
@@ -33,14 +35,14 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
-	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<title>FlixGo – Online Movies, TV Shows</title>
 
 </head>
 <body class="body">
 
 	<%if ((request.getParameter("logged") != null) && (request.getParameter("logged").equals("false"))) { %>
 		<div role="alert" id="loginAlert">
-		  Something went wrong! Please try Again
+		  User Name or Password Incorrect!
 		</div>
 	<% } %>
 
@@ -49,15 +51,11 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="sign__content">
-						<!-- registration form -->
-						<form action="register" class="sign__form" method="post">
+						<!-- authorization form -->
+						<form action="login" class="sign__form" method="post">
 							<a href="index.html" class="sign__logo">
 								<img src="img/logo.svg" alt="">
 							</a>
-
-							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Name" name="name">
-							</div>
 
 							<div class="sign__group">
 								<input type="text" class="sign__input" placeholder="User Name" name="userName">
@@ -67,24 +65,18 @@
 								<input type="password" class="sign__input" placeholder="Password" name="password">
 							</div>
 
-							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Email" name="email">
-							</div>
-
-							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Phone number" name="mobile">
-							</div>
-
 							<div class="sign__group sign__group--checkbox">
 								<input id="remember" name="remember" type="checkbox" checked="checked">
-								<label for="remember">I agree to the <a href="#">Privacy Policy</a></label>
+								<label for="remember">Remember Me</label>
 							</div>
 							
-							<button class="sign__btn" type="submit">Sign up</button>
+							<button class="sign__btn" type="submit" value="Sign in">Sign in</button>
 
-							<span class="sign__text">Already have an account? <a href="RUserlogin.jsp">Sign in!</a></span>
+							<span class="sign__text">Don't have an account? <a href="RUserRegister.jsp">Sign up!</a></span>
+
+							<span class="sign__text"><a href="#">Forgot password?</a></span>
 						</form>
-						<!-- registration form -->
+						<!-- end authorization form -->
 					</div>
 				</div>
 			</div>
@@ -104,6 +96,7 @@
 	<script src="js/photoswipe.min.js"></script>
 	<script src="js/photoswipe-ui-default.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/new.js"></script>
 </body>
 
 </html>

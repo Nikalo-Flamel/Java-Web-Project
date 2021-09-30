@@ -47,17 +47,17 @@ public class RUserRegisterControllerServlet extends HttpServlet {
 				cookie2.setMaxAge(60*60*24*365);
 				response.addCookie(cookie2);
 				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp?UserId=" + user.getId());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp?UserId=" + user.getId());
 				dispatcher.forward(request, response);
 			} else {
-				out.println("<script type='text/javascript'>");
-				out.println("alert('Error in registering User');");
-				out.println("location='RUserRegister.jsp'");
-				out.println("</script>");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/RUserRegister.jsp?logged=false");
+				dispatcher.forward(request, response);
 				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
 			e.printStackTrace();
 		}
 	}

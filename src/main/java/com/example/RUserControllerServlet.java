@@ -46,6 +46,8 @@ public class RUserControllerServlet extends HttpServlet {
 			
 		}
 		catch(Exception exc) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
 			throw new ServletException(exc);
 		}
 		
@@ -60,14 +62,18 @@ public class RUserControllerServlet extends HttpServlet {
 				switch(command) {	
 				case "UPDATE":
 					updateAccount(request, response);
-					break;		
+					break;
 				default:
 					System.out.println(command);
+					System.out.println(request.getParameter("userId"));
 				}
 			}
+			//updateAccount(request, response);
 			
 		}
 		catch(Exception exc) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
 			throw new ServletException(exc);
 		}
 	}
@@ -82,7 +88,7 @@ public class RUserControllerServlet extends HttpServlet {
 		
 		eraseCookie(request, response);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 		dispatcher.forward(request, response);
 	
 	}
@@ -95,7 +101,14 @@ public class RUserControllerServlet extends HttpServlet {
 		
 		String userName = request.getParameter("userName");
 		String name = request.getParameter("name");
-		String password = request.getParameter("password");
+		String password = null;
+		System.out.println(request.getParameter("newPassword"));
+		if (request.getParameter("newPassword").isEmpty()) {
+			password = request.getParameter("password");
+		} else {
+			password = request.getParameter("newPassword");
+		}
+		
 		String email = request.getParameter("email");
 		String mobile = request.getParameter("mobile");
 		
@@ -107,7 +120,7 @@ public class RUserControllerServlet extends HttpServlet {
 		user = RUserDBUtil.getRegisteredUser("" + userId);
 		request.setAttribute("REGISTERED_USER", user);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/RUserAccount.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp?UserId=" + user.getId());
 		dispatcher.forward(request, response);
 		
 	}

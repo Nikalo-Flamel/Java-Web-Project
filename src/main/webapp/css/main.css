@@ -38,6 +38,20 @@ Primary use:	FlixGo Template
 /*==============================
 	Common styles
 ==============================*/
+#login {
+  padding-right: 0px;
+  margin-right: 0px;
+  margin-left: 20px;
+}
+#signin {
+  margin-left: 20px;
+}
+
+#userAccountPhoto{
+  padding-top: 50px;
+}
+
+
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -1413,6 +1427,7 @@ ul {
   line-height: 25px;
   color: rgba(255,255,255,0.7);
   letter-spacing: 0.2px;
+  
 }
 .card--details .card__list {
   display: inline-flex;
@@ -1443,7 +1458,7 @@ ul {
   margin-top: 15px;
 }
 .card--details .card__content {
-  margin-top: 15px;
+  margin-top: 20%;
 }
 .card--details .card__meta {
   margin-top: 15px;
@@ -1518,7 +1533,7 @@ ul {
     margin-top: 0;
   }
   .card--details .card__content {
-    margin-top: 0;
+    margin-top: 10px;
   }
   .card--details .card__wrap {
     margin-top: 0;

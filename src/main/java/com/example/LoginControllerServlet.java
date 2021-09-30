@@ -22,7 +22,7 @@ public class LoginControllerServlet extends HttpServlet {
 		
 		eraseCookie(request, response);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -49,16 +49,16 @@ public class LoginControllerServlet extends HttpServlet {
 				cookie2.setMaxAge(60*60*24*365);
 				response.addCookie(cookie2);
 				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp?UserId=" + user.getId());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp?UserId=" + user.getId());
 				dispatcher.forward(request, response);
 			} else {
-				out.println("<script type='text/javascript'>");
-				out.println("alert('Your username or password is incorrect');");
-				out.println("location='login.jsp'");
-				out.println("</script>");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/RUserlogin.jsp?logged=false");
+				dispatcher.forward(request, response);
 			}
 		}
 		catch (Exception e) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 			e.printStackTrace();
 			throw new ServletException(e);
 		}

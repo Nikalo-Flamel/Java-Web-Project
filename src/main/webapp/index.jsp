@@ -29,13 +29,13 @@
 	<h1>Home</h1>
 	
 	<% if (userType.equals("RegisteredUser")) {%>
-		<a href="/Oop_demo1/RUserControllerServlet?command=ACCOUNT&UserId=<%= request.getParameter("UserId")%>">Account</a>
-		<a href="/Oop_demo1/LoginControllerServlet">Logout </a>
+		<a href="user?command=ACCOUNT&UserId=<%= request.getParameter("UserId")%>">Account</a>
+		<a href="login">Logout </a>
 	<% } %>
 
 	<% if (userType == "") { %>
-		<a href="/Oop_demo1/login.jsp">Login</a>
-		<a href="/Oop_demo1/RUserRegister.jsp">Register</a>
+		<a href="RUserlogin.jsp">Login</a>
+		<a href="RUserRegister.jsp">Register</a>
 	<% } %>
 	
 

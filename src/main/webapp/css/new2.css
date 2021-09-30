@@ -1,0 +1,46 @@
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  border-radius: 15px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+#loginAlert {
+  height: 50px;
+  background-color: #f8d7da;
+  text-align: center;
+  padding: auto;
+  padding-top: 10px;
+  color: red;
+  font-size: 18px;
+}
+
+#delete {
+  height: 50px;
+  background-color: #dd003f;
+  width: 180px;
+  margin: 18px;
+  font-size: 20px;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
