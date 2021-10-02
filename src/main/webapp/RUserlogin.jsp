@@ -40,9 +40,14 @@
 </head>
 <body class="body">
 
-	<%if ((request.getParameter("logged") != null) && (request.getParameter("logged").equals("false"))) { %>
+	<%if ((request.getParameter("logged") != null) && (request.getParameter("logged").equals("incorrect"))) { %>
 		<div role="alert" id="loginAlert">
 		  User Name or Password Incorrect!
+		</div>
+	<% } %>
+	<%if ((request.getParameter("logged") != null) && (request.getParameter("logged").equals("false"))) { %>
+		<div role="alert" id="loginAlert">
+		  You must Log in first!
 		</div>
 	<% } %>
 

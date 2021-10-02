@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/LoginControllerServlet")
 public class LoginControllerServlet extends HttpServlet {
@@ -20,11 +21,11 @@ public class LoginControllerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		eraseCookie(request, response);
+        HttpSession session=request.getSession();  
+        session.invalidate(); 
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 		dispatcher.forward(request, response);
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,6 +35,11 @@ public class LoginControllerServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			
 			RegisteredUser user = RUserDBUtil.getUserbyUserName(userName);
+			if (user != null) {
+				int id = user.getId();
+			}
+//			System.out.println(id + "");
+//			System.out.println("after id");
 			
 			boolean isSuccess = RUserDBUtil.validateUser(user, password);
 			
@@ -41,18 +47,14 @@ public class LoginControllerServlet extends HttpServlet {
 			response.setContentType("text/html");
 			
 			if (isSuccess == true) {
-				Cookie cookie1 = new Cookie("user", "RegisteredUser");
-				cookie1.setMaxAge(60*60*24*365);
-				response.addCookie(cookie1);
-				
-				Cookie cookie2 = new Cookie("userId", ("" + user.getId()));
-				cookie2.setMaxAge(60*60*24*365);
-				response.addCookie(cookie2);
+				HttpSession session=request.getSession();
+				session.setAttribute("user","RegisteredUser");
+				session.setAttribute("userId",user.getId());
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp?UserId=" + user.getId());
 				dispatcher.forward(request, response);
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/RUserlogin.jsp?logged=false");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/RUserlogin.jsp?logged=incorrect");
 				dispatcher.forward(request, response);
 			}
 		}

@@ -41,8 +41,25 @@
 
 </head>
 <body class="body">
-<!-- header -->
 
+<%
+if (session.getAttribute("user") == null) {
+	response.sendRedirect("RUserlogin.jsp?logged=false");
+}
+%>
+
+<script>
+function myFunction(event) {
+	    event.preventDefault();
+	    var r=confirm("Are you sure you want to delete?");
+	    if (r==true)   {  
+	    	deleteid = document.querySelector("#delete");
+	    	window.location = deleteid.href;
+	    }
+	}
+</script>
+
+<!-- header -->
 	<header class="header">
 		<div class="header__wrap">
 			<div class="container">
@@ -50,7 +67,7 @@
 					<div class="col-12">
 						<div class="header__content">
 							<!-- header logo -->
-							<a href="index.html" class="header__logo">
+							<a href="index.jsp?UserId=<%= session.getAttribute("userId") %>" class="header__logo">
 								<img src="img/logo.svg" alt="">
 							</a>
 							<!-- end header logo -->
@@ -59,19 +76,19 @@
 							<ul class="header__nav">
 
 								<li class="header__nav-item">
-									<a href="pricing.html" class="header__nav-link">Movies</a>
+									<a href="movielist.jsp" class="header__nav-link">Movies</a>
+								</li>
+
+								
+								<li class="header__nav-item">
+									<a href="articlelist.jsp" class="header__nav-link">Articals</a>
 								</li>
 
 								<li class="header__nav-item">
-									<a href="pricing.html" class="header__nav-link">TV Series</a>
+									<a href="aboutus.jsp" class="header__nav-link">About Us</a>
 								</li>
-
 								<li class="header__nav-item">
-									<a href="pricing.html" class="header__nav-link">Articals</a>
-								</li>
-
-								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">About Us</a>
+									<a href="contactus.jsp" class="header__nav-link">Contact Us</a>
 								</li>
 
 								<!-- dropdown -->
@@ -79,7 +96,7 @@
 									<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
 
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
-										<li><a href="about.html">Contact Us</a></li>
+										
 										<li><a href="signin.html">Sign In</a></li>
 										<li><a href="signup.html">Sign Up</a></li>
 									</ul>
@@ -92,15 +109,16 @@
 							<div class="header__auth">
 								<button class="header__search-btn" type="button">
 									<i class="icon ion-ios-search"></i>
-								</button>
-
+								</button>	
+								
 								<li class="header__nav-item" id="login">
-									<a href="faq.html" class="header__nav-link">log in</a>
+									<a href="login" class="header__nav-link">Log out</a>
 								</li>
-								<a href="signin.html" class="header__sign-in" id="signin">
+								<a href="user?command=ACCOUNT&UserId=<%= session.getAttribute("userId")%>" class="header__sign-in" id="signin">
 									<i class="icon ion-ios-log-in"></i>
-									<span>sign in</span>
+									<span>Account</span>
 								</a>
+								
 							</div>
 							<!-- end header auth -->
 
@@ -117,15 +135,15 @@
 			</div>
 		</div>
 
-		<!-- header search -->
-		<form action="#" class="header__search">
+		<!-- header search -->'
+		<form action="moviesearch" class="header__search" method="post">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
 						<div class="header__search-content">
-							<input type="text" placeholder="Search for a movie, TV Series that you are looking for">
+							<input type="text" name="search" placeholder="Search for a movie, TV Series that you are looking for">
 
-							<button type="button">search</button>
+							<input type="submit" value="Search" >
 						</div>
 					</div>
 				</div>
@@ -134,7 +152,6 @@
 		<!-- end header search -->
 	</header>
 	<!-- end header -->
-
 
 	<!-- page title -->
 	<section class="section section--first section--bg" data-bg="img/section/section.jpg">
@@ -148,7 +165,7 @@
 
 						<!-- breadcrumb -->
 						<ul class="breadcrumb">
-							<li class="breadcrumb__item"><a href="#">Home</a></li>
+							<li class="breadcrumb__item"><a href="index.jsp">Home</a></li>
 							<li class="breadcrumb__item breadcrumb__item--active">Account</li>
 						</ul>
 						<!-- end breadcrumb -->
@@ -172,9 +189,9 @@
 						<div class="user-fav">
 							<p>Account Details</p>
 							<ul>
-								<li  class="active"><a href="userprofile.html">Profile</a></li>
-								<li><a href="userfavoritelist.html">Favorite movies</a></li>
-								<li><a href="userrate.html">Rated movies</a></li>
+								<li  class="active"><a href="user?command=ACCOUNT&UserId=<%= session.getAttribute("userId")%>">Profile</a></li>
+								<li><a href="#">Favorite movies</a></li>
+								<li><a href="#">Rated movies</a></li>
 							</ul>
 						</div>
 						<div class="user-fav">
@@ -238,7 +255,7 @@
 						</form>
 						
 						<div class="row">
-								<a class="submit" id="delete" href="user?command=DELETE&UserId=${REGISTERED_USER.id }">Delete Account</a>
+								<a class="submit" id="delete" href="user?command=DELETE&UserId=${REGISTERED_USER.id }" onclick="myFunction(event)">Delete Account</a>
 						</div>
 
 					</div>
@@ -246,10 +263,6 @@
 			</div>
 		</div>
 	</div>
-	
-	<a href="http://localhost:8091/Oop_demo1/RUserControllerServlet?command=DELETE&UserId=${REGISTERED_USER.id }">Delete account</a>
-
-
 	
 	<!-- footer -->
 	<footer class="footer">

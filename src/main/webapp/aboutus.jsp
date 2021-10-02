@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*, com.example.*" %>   
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,21 +11,16 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
 
 	<!-- CSS -->
-
-	<link rel="stylesheet" href="css/plugins.css">
-	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/bootstrap-reboot.min.css">
 	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
-<!-- 	<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-	<link rel="stylesheet" href="css/nouislider.min.css"> -->
+	<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" href="css/nouislider.min.css">
 	<link rel="stylesheet" href="css/ionicons.min.css">
-<!-- 	<link rel="stylesheet" href="css/plyr.css">
+	<link rel="stylesheet" href="css/plyr.css">
 	<link rel="stylesheet" href="css/photoswipe.css">
-	<link rel="stylesheet" href="css/default-skin.css"> -->
+	<link rel="stylesheet" href="css/default-skin.css">
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/new.css">
-	<link rel="stylesheet" href="css/new2.css">
 
 	<!-- Favicons -->
 	<link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
@@ -40,19 +32,14 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
-	<title>FlixGo – Online Movies, TV Shows</title>
+	<title>Deflix – Online Movies, TV Shows & Cinema</title>
 
-	<% RegisteredUser user = (RegisteredUser) request.getAttribute("REGISTERED_USER"); %>
 </head>
 <body class="body">
 
-<%
-if (session.getAttribute("user") == null) {
-	response.sendRedirect("RUserlogin.jsp?logged=false");
-}
-%>
+<% String userType = (String)session.getAttribute("user"); %>
 	
-<!-- header -->
+	<!-- header -->
 	<header class="header">
 		<div class="header__wrap">
 			<div class="container">
@@ -60,7 +47,7 @@ if (session.getAttribute("user") == null) {
 					<div class="col-12">
 						<div class="header__content">
 							<!-- header logo -->
-							<a href="index.jsp?UserId=<%= session.getAttribute("userId") %>" class="header__logo">
+							<a href="index.jsp?UserId=<%= request.getParameter("UserId") %>" class="header__logo">
 								<img src="img/logo.svg" alt="">
 							</a>
 							<!-- end header logo -->
@@ -102,8 +89,11 @@ if (session.getAttribute("user") == null) {
 							<div class="header__auth">
 								<button class="header__search-btn" type="button">
 									<i class="icon ion-ios-search"></i>
-								</button>	
+								</button>
+							
 								
+								
+								<% if (userType != null && userType.equals("RegisteredUser")) {%>
 								<li class="header__nav-item" id="login">
 									<a href="login" class="header__nav-link">Log out</a>
 								</li>
@@ -111,6 +101,21 @@ if (session.getAttribute("user") == null) {
 									<i class="icon ion-ios-log-in"></i>
 									<span>Account</span>
 								</a>
+								<% } %>
+									
+								<% if (userType == null || userType == "") {%>
+								<li class="header__nav-item" id="login">
+									<a href="RUserlogin.jsp" class="header__nav-link">log in</a>
+								</li>
+								<a href="RUserRegister.jsp" class="header__sign-in" id="signin">
+									<i class="icon ion-ios-log-in"></i>
+									<span>Register</span>
+								</a>
+								<% } %>
+								
+								
+								
+								
 								
 							</div>
 							<!-- end header auth -->
@@ -146,7 +151,6 @@ if (session.getAttribute("user") == null) {
 	</header>
 	<!-- end header -->
 
-
 	<!-- page title -->
 	<section class="section section--first section--bg" data-bg="img/section/section.jpg">
 		<div class="container">
@@ -154,13 +158,13 @@ if (session.getAttribute("user") == null) {
 				<div class="col-12">
 					<div class="section__wrap">
 						<!-- section title -->
-						<h2 class="section__title">${REGISTERED_USER.name }'s Profile</h2>
+						<h2 class="section__title">About Us</h2>
 						<!-- end section title -->
 
 						<!-- breadcrumb -->
 						<ul class="breadcrumb">
 							<li class="breadcrumb__item"><a href="index.jsp">Home</a></li>
-							<li class="breadcrumb__item breadcrumb__item--active">Account</li>
+							<li class="breadcrumb__item breadcrumb__item--active">About Us</li>
 						</ul>
 						<!-- end breadcrumb -->
 					</div>
@@ -170,71 +174,131 @@ if (session.getAttribute("user") == null) {
 	</section>
 	<!-- end page title -->
 
-	
-	<div class="page-single">
+	<!-- about -->
+	<section class="section">
 		<div class="container">
-			<div class="row ipad-width">
-				<div class="col-md-3 col-sm-12 col-xs-12">
-					<div class="user-information">
-						<div class="user-img">
-							<a href="#"><img src="images/uploads/user-img.png" alt=""><br></a>
-							<a href="#" class="yellowbtn" id="account">Registered User</a>
-						</div>
-						<div class="user-fav">
-							<p>Account Details</p>
-							<ul>
-								<li  class="active"><a href="user?command=ACCOUNT&UserId=<%= session.getAttribute("userId")%>">Profile</a></li>
-								<li><a href="#">Favorite movies</a></li>
-								<li><a href="#">Rated movies</a></li>
-							</ul>
-						</div>
-						<div class="user-fav">
-							<p>Others</p>
-							<ul>
-								<li><a href="login">Log out</a></li>
-							</ul>
-						</div>
-					</div>
+			<div class="row">
+				<!-- section title -->
+				<div class="col-12">
+					<h2 class="section__title"><b>Deflix</b> – Best Place for Movies</h2>
 				</div>
-				<div class="col-md-9 col-sm-12 col-xs-12">
-					<div class="form-style-1 user-pro" action="#">
-						<form action="#" class="user">
-							<h4>Profile details</h4>
-							<div class="row">
-								<div class="col-md-6 form-it">
-									<label>Username</label>
-									<input type="text" placeholder="User Name" value="${REGISTERED_USER.username }" readonly>
-								</div>
-								<div class="col-md-6 form-it">
-									<label>Email Address</label>
-									<input type="text" placeholder="Email" value="${REGISTERED_USER.email }" readonly>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-6 form-it">
-									<label>Name</label>
-									<input type="text" placeholder="Name " value="${REGISTERED_USER.name }" readonly>
-								</div>
-								<div class="col-md-6 form-it">
-									<label>Phone Number</label>
-									<input type="text" placeholder="Number" value="${REGISTERED_USER.mobile }" readonly>
-								</div>
-							</div>
+				<!-- end section title -->
 
-							<!-- <div class="row">
-								<div class="col-md-2">
-									<input class="submit" type="submit" value="save">
-								</div>
-							</div> -->	
-						</form>
-						<a class="yellowbtn" href="user?command=LOAD&UserId=${REGISTERED_USER.id }" id="editButton">Edit profile Details</a>
+				<!-- section text -->
+				<div class="col-12">
+					<p class="section__text">It is a long <b>established</b> fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+
+					<p class="section__text section__text--last-with-margin">'Content here, content here', making it look like <a href="#">readable</a> English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+				</div>
+				<!-- end section text -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-tv feature__icon"></i>
+						<h3 class="feature__title">Ultra HD</h3>
+						<p class="feature__text">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
 					</div>
 				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-film feature__icon"></i>
+						<h3 class="feature__title">Film</h3>
+						<p class="feature__text">All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-trophy feature__icon"></i>
+						<h3 class="feature__title">Awards</h3>
+						<p class="feature__text">It to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-notifications feature__icon"></i>
+						<h3 class="feature__title">Notifications</h3>
+						<p class="feature__text">Various versions have evolved over the years, sometimes by accident, sometimes on purpose.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-rocket feature__icon"></i>
+						<h3 class="feature__title">Rocket</h3>
+						<p class="feature__text">It to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+					</div>
+				</div>
+				<!-- end feature -->
+
+				<!-- feature -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="feature">
+						<i class="icon ion-ios-globe feature__icon"></i>
+						<h3 class="feature__title">Multi Language Subtitles </h3>
+						<p class="feature__text">Various versions have evolved over the years, sometimes by accident, sometimes on purpose.</p>
+					</div>
+				</div>
+				<!-- end feature -->
 			</div>
 		</div>
-	</div>
+	</section>
+	<!-- end about -->
 
+	<!-- how it works -->
+	<section class="section section--dark">
+		<div class="container">
+			<div class="row">
+				<!-- section title -->
+				<div class="col-12">
+					<h2 class="section__title section__title--no-margin">How it works?</h2>
+				</div>
+				<!-- end section title -->
 
+				<!-- how box -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="how">
+						<span class="how__number">01</span>
+						<h3 class="how__title">Create an account</h3>
+						<p class="how__text">It has never been an issue to find an old movie or TV show on the internet. However, this is not the case with the new releases.</p>
+					</div>
+				</div>
+				<!-- ebd how box -->
+
+				<!-- how box -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="how">
+						<span class="how__number">02</span>
+						<h3 class="how__title">Serch for your Favorites</h3>
+						<p class="how__text">It has never been an issue to find an old movie or TV show on the internet. However, this is not the case with the new releases.</p>
+					</div>
+				</div>
+				<!-- ebd how box -->
+
+				<!-- how box -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="how">
+						<span class="how__number">03</span>
+						<h3 class="how__title">Enjoy Deflix</h3>
+						<p class="how__text">It has never been an issue to find an old movie or TV show on the internet. However, this is not the case with the new releases.</p>
+					</div>
+				</div>
+				<!-- ebd how box -->
+			</div>
+		</div>
+	</section>
+	<!-- end how it works -->
 
 	
 	<!-- footer -->
@@ -255,9 +319,9 @@ if (session.getAttribute("user") == null) {
 				<div class="col-6 col-sm-4 col-md-3">
 					<h6 class="footer__title">Resources</h6>
 					<ul class="footer__list">
-						<li><a href="#">Movies</a></li>
-						<li><a href="#">TV Series</a></li>
-						<li><a href="#">Articals</a></li>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Pricing Plan</a></li>
+						<li><a href="#">Help</a></li>
 					</ul>
 				</div>
 				<!-- end footer list -->
@@ -266,11 +330,9 @@ if (session.getAttribute("user") == null) {
 				<div class="col-6 col-sm-4 col-md-3">
 					<h6 class="footer__title">Legal</h6>
 					<ul class="footer__list">
-						<li><a href="#">About Us</a></li>
 						<li><a href="#">Terms of Use</a></li>
 						<li><a href="#">Privacy Policy</a></li>
 						<li><a href="#">Security</a></li>
-						<li><a href="#">Help</a></li>
 					</ul>
 				</div>
 				<!-- end footer list -->
@@ -294,7 +356,7 @@ if (session.getAttribute("user") == null) {
 				<!-- footer copyright -->
 				<div class="col-12">
 					<div class="footer__copyright">
-						<small><a target="_blank" href="https://www.templateshub.net">Web Team</a></small>
+						<small><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></small>
 
 						<ul>
 							<li><a href="#">Terms of Use</a></li>
@@ -321,11 +383,6 @@ if (session.getAttribute("user") == null) {
 	<script src="js/photoswipe.min.js"></script>
 	<script src="js/photoswipe-ui-default.min.js"></script>
 	<script src="js/main.js"></script>
-	<script src="js/jquery.js"></script>
-	<script src="js/plugins.js"></script>
-	<script src="js/plugins2.js"></script>
-	<script src="js/custom.js"></script>
-
 </body>
 
 </html>

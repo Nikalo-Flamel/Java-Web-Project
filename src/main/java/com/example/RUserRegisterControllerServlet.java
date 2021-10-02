@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/RUserRegisterControllerServlet")
 public class RUserRegisterControllerServlet extends HttpServlet {
@@ -39,13 +40,9 @@ public class RUserRegisterControllerServlet extends HttpServlet {
 			response.setContentType("text/html");
 			
 			if (isSuccess >= 0) {
-				Cookie cookie1 = new Cookie("user", "RegisteredUser");
-				cookie1.setMaxAge(60*60*24*365);
-				response.addCookie(cookie1);
-				
-				Cookie cookie2 = new Cookie("userId", ("" + user.getId()));
-				cookie2.setMaxAge(60*60*24*365);
-				response.addCookie(cookie2);
+				HttpSession session=request.getSession();
+				session.setAttribute("user","RegisteredUser");
+				session.setAttribute("userId",user.getId());
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp?UserId=" + user.getId());
 				dispatcher.forward(request, response);

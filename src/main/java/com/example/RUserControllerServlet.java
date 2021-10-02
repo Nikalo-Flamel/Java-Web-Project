@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/RUserControllerServlet")
 public class RUserControllerServlet extends HttpServlet {
@@ -41,6 +42,8 @@ public class RUserControllerServlet extends HttpServlet {
 					
 				default:
 					System.out.println(command);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+					dispatcher.forward(request, response);
 				}
 			}
 			
@@ -66,6 +69,8 @@ public class RUserControllerServlet extends HttpServlet {
 				default:
 					System.out.println(command);
 					System.out.println(request.getParameter("userId"));
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+					dispatcher.forward(request, response);
 				}
 			}
 			//updateAccount(request, response);
@@ -86,7 +91,8 @@ public class RUserControllerServlet extends HttpServlet {
 		RegisteredUser user = RUserDBUtil.getRegisteredUser(userId);
 		boolean isSuccess = RUserDBUtil.deleteUser(user);
 		
-		eraseCookie(request, response);
+        HttpSession session=request.getSession();  
+        session.invalidate(); 
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 		dispatcher.forward(request, response);

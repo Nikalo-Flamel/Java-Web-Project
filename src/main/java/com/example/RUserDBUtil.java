@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RUserDBUtil {
 	
-	private static MovieDBUtil MovieDBUtil = new MovieDBUtil();
+	//private static MovieDBUtil MovieDBUtil = new MovieDBUtil();
 	
 
 	public boolean validateUser(User user, String password){
@@ -161,45 +161,7 @@ public class RUserDBUtil {
 		}
 	}
 
-	private List<Movie> getWishedMovies(String userId) throws Exception{
-		
-		List<Movie> wishedMovies = new ArrayList<Movie>();
-		
-		Connection myConn = null;
-		PreparedStatement myStmt= null;
-		ResultSet myRe = null;
-		int id;
-		
-		try {
-			id = Integer.parseInt(userId);
-			
-			//get the connection
-			myConn = DBconnect.getConnection();
-			
-			//create sql statement
-			String sql = "select * from WishedMovies where RegisteredUserId=?";
-			myStmt = myConn.prepareStatement(sql);
-			myStmt.setInt(1, id);
-
-			//execute query
-			myRe = myStmt.executeQuery();
-			
-			//process the result set
-			while (myRe.next()) {
-				//retrieve data
-				int movieId = myRe.getInt("MovieId");
-				wishedMovies.add(MovieDBUtil.getMovie(movieId));	
-			}	
-			
-			return wishedMovies;
-			
-		}
-		finally {
-			
-			//close jdbc objects
-			close(myConn, myStmt, myRe);
-		}
-	}
+	
 
 	public boolean updateRegisteredUser(RegisteredUser user) throws Exception {
 		
